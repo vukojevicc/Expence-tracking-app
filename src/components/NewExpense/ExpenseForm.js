@@ -42,20 +42,30 @@ const ExpenseForm = (props) => {
     //   });
   };
 
+  const changeAddExpense = () => {
+    let addExpense = props.addExpense ? false : true
+    props.addExpenseBoolean(addExpense)
+  }
+
   const submitHandler = (event) => {
     event.preventDefault();
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
-    props.onSaveExpenseData(expenseData)
-    
-    setEnteredTitle('')
-    setEnteredAmount('')
-    setEnteredDate('')
+    props.onSaveExpenseData(expenseData);
+
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
+    changeAddExpense()
+  };
+
+  const clickHandler = () => {
+    changeAddExpense()
   };
 
   return (
@@ -91,6 +101,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={clickHandler}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
